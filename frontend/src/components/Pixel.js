@@ -1,6 +1,7 @@
-import {useState} from 'react';
+import {useState, useContext} from 'react';
 import '../styles/Pixel.scss';
 import { dogCanvas } from './DogCanvas';
+import { MouseDownContext } from './NewDog';
 
 
 export default function Pixel(props) {
@@ -9,8 +10,8 @@ export default function Pixel(props) {
     const [pixelColor, setPixelColor] = useState(pixel);
     const [oldColor, setOldColor] = useState(pixelColor);
     const [canChangeColor, setCanChangeColor] = useState(true);
-    const [mouseDown, setMouseDown] = useState(false)
-    
+    const {mouseDown, setMouseDown} = useContext(MouseDownContext)
+
     function validPixel() {
         return !!dogCanvas[rowIndex][pixelIndex]
     }
@@ -26,12 +27,10 @@ export default function Pixel(props) {
     }
 
     function toggleMouseUp() {
-        console.log('mouse going up!')
         setMouseDown(false)
     }
     
     function toggleMouseDown() {
-        console.log('beep beep mouse down')
         setMouseDown(true)
         applyColor()
     }
@@ -40,12 +39,9 @@ export default function Pixel(props) {
         if (validPixel()) {
             setOldColor(pixelColor);
             setPixelColor(selectedColor);
-            console.log('hi dog', mouseDown)
             if (mouseDown) {
-                console.log('mouse is down and we should apply color!')
                 applyColor()
             }
-            // check if mouse is down and then apply color change on hover
         }
     }
 
@@ -53,7 +49,6 @@ export default function Pixel(props) {
         if (canChangeColor) {
             setPixelColor(oldColor);
         }
-
         setCanChangeColor(true);
     }
 
@@ -62,12 +57,15 @@ export default function Pixel(props) {
         <div 
             className="pixel" 
             id={pixelColor} 
-            disabled={(dogCanvas[rowIndex][pixelIndex] ? false : true)}
+            disabled={!validPixel}
             onMouseDown={toggleMouseDown}
             onMouseUp={toggleMouseUp} 
             onMouseEnter={changeColorOnHover} 
             onMouseLeave={resetColor} 
-            style={{backgroundColor: pixelColor}}>
+            style={{
+                backgroundColor: pixelColor,
+                cursor: (validPixel() ? 'cursor' : 'auto')
+            }}>
 
         </div>
     )

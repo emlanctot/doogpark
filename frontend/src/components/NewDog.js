@@ -6,20 +6,44 @@ import { dogCanvas } from './DogCanvas';
 export const MouseDownContext = createContext();
 
 function NewDog() {
-    const [inputField , setInputField] = useState({name: ''})
+    const [dogName , setDogName] = useState('')
     const [selectedColor, setColor] = useState("#684220")
     let initialCanvas = () => {
-        return dogCanvas.map((row) => row.map((pixel) => !!pixel ? '#fff' : '#888'))
+        return dogCanvas.map((row) => row.map((pixel) => !!pixel ? '#fff' : 'rgba(136, 136, 136, 0.5)'))
     }
     const [pixelCanvas, setPixelCanvas] = useState(initialCanvas())
     const [mouseDown, setMouseDown] = useState(false)
+    const [createMessage, setCreateMessage] = useState()
 
     const inputsHandler = (e) => {
-        setInputField( {[e.target.name]: e.target.value} )
+        setDogName( e.target.value )
     }
 
-    const submitButton = () => {
-        alert(inputField.first_name)
+    const generateDogPattern = pixelCanvas.flat().filter((x) => x !== 'rgba(136, 136, 136, 0.5)')
+
+    const createDog = async (e) => {
+        e.preventDefault();
+        try {
+
+            let response = await fetch("http://localhost:3000/api/v1/dogs", {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({
+                    pattern: generateDogPattern,
+                    name: dogName
+                }),
+            });
+            let responseJson = await response.json();
+            if (response.status === 200) {
+                setCreateMessage('yay dog created!')
+            } else {
+                setCreateMessage('oops something went wrong')
+            }
+            console.log(createMessage)
+        } catch (error) {
+            console.log(error);
+        }
+        console.log(createMessage)
     }
 
     let rows = [];
@@ -30,15 +54,14 @@ function NewDog() {
     return (
         <div>
             <h1>New Dog</h1>
-
             <label>Dog Name:</label>
-            <input type="text" name="name" onChange={inputsHandler} placeholder="Name" value={inputField.name} />
+            <input type="text" name="name" onChange={inputsHandler} placeholder="Name" value={dogName} />
 
             <MouseDownContext.Provider value={{mouseDown, setMouseDown}}>
                 {rows}
             </MouseDownContext.Provider>
             <HexColorPicker color={selectedColor} onChange={setColor} />
-            <button onClick={submitButton}>create dog!</button>
+            <button onClick={createDog}>create dog!</button>
         </div>
     );
 }

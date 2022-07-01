@@ -5,6 +5,7 @@ class CreateDogs < ActiveRecord::Migration[7.0]
       t.float :x
       t.float :y
       t.integer :facing
+      t.string :pattern, array: true, default: []
 
       t.timestamps
     end

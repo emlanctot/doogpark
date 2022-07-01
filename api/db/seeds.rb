@@ -7,7 +7,6 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 Dog.destroy_all
-Pattern.destroy_all
 
 sample_dog = Dog.create(
     name: 'Fido',

@@ -6,6 +6,13 @@ class Api::V1::DogsController < ApplicationController
         render json: @dogs
     end
 
+    def show
+        @dog = Dog.find(params[:id])
+        @initial_frame = Dog.inital_dog_frame(@dog.pattern)
+        # @running_frames = Dog.running_frames
+        # render json: @dog
+    end
+
     def create
         @dog = Dog.new(dog_params)
         if @dog.save
@@ -28,6 +35,6 @@ class Api::V1::DogsController < ApplicationController
 private
 
     def dog_params
-        params.require(:dog).permit(:name, :x, :y, :facing, :pattern)
+        params.require(:dog).permit(:name, :x, :y, :facing, pattern: [])
     end
 end

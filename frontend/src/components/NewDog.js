@@ -9,28 +9,27 @@ function NewDog() {
     const [dogName , setDogName] = useState('')
     const [selectedColor, setColor] = useState("#684220")
     let initialCanvas = () => {
-        return dogCanvas.map((row) => row.map((pixel) => !!pixel ? '#fff' : 'rgba(136, 136, 136, 0.5)'))
+        return dogCanvas.map((row) => row.map((pixel) => !!pixel ? '#fff' : 'transparent'))
     }
     const [pixelCanvas, setPixelCanvas] = useState(initialCanvas())
     const [mouseDown, setMouseDown] = useState(false)
-    const [createMessage, setCreateMessage] = useState()
+    const [createMessage, setCreateMessage] = useState('')
 
     const inputsHandler = (e) => {
         setDogName( e.target.value )
     }
 
-    const generateDogPattern = pixelCanvas.flat().filter((x) => x !== 'rgba(136, 136, 136, 0.5)')
+    const generateDogPattern = pixelCanvas.flat().filter((x) => x !== 'transparent')
 
     const createDog = async (e) => {
         e.preventDefault();
         try {
-
             let response = await fetch("http://localhost:3000/api/v1/dogs", {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify({
+                    name: dogName,
                     pattern: generateDogPattern,
-                    name: dogName
                 }),
             });
             let responseJson = await response.json();
@@ -43,7 +42,6 @@ function NewDog() {
         } catch (error) {
             console.log(error);
         }
-        console.log(createMessage)
     }
 
     let rows = [];

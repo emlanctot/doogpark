@@ -1,0 +1,10 @@
+%div{ :style => "background-color: black"}
+    dog
+    - @dog.pattern.each do |hex|
+        - @running_frames.each do |row|
+            - row.each do |pixel|
+                - if pixel == 1
+                    %div.pixel{ :style => "background-color: #{hex}; width: 0.2rem; height: 0.2rem;"}
+                - else
+                    %div.pixel{ :style => "background-color: transparent; width: 0.2rem; height: 0.2rem;"}
+

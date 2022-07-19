@@ -1,7 +1,6 @@
 import '../styles/App.scss';
 import { useState } from 'react';
 import NewDog from './NewDog.js';
-import Park from './Park.js';
 
 
 function App() {
@@ -11,7 +10,6 @@ function App() {
     <div className="App">
       <h2>butts :)</h2>
       <NewDog />
-      <Park />
     </div> 
   );
 }

@@ -8,9 +8,7 @@ class Api::V1::DogsController < ApplicationController
 
     def show
         @dog = Dog.find(params[:id])
-        @initial_frame = Dog.inital_dog_frame(@dog.pattern)
-        # @running_frames = Dog.running_frames
-        # render json: @dog
+        render json: @dog
     end
 
     def create
@@ -18,7 +16,7 @@ class Api::V1::DogsController < ApplicationController
         if @dog.save
             render json: @dog
         else
-            render error: { error: 'Ooops something went wrong!'}, status: 400
+            render json: { error: 'Ooops something went wrong!'}, status: 400
         end
     end
 
@@ -35,6 +33,6 @@ class Api::V1::DogsController < ApplicationController
 private
 
     def dog_params
-        params.require(:dog).permit(:name, :x, :y, :facing, pattern: [])
+        params.require(:dog).permit(:name, :x, :y, :facing, :sprite_image, pattern: [])
     end
 end

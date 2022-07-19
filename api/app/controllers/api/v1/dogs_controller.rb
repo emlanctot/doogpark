@@ -1,3 +1,4 @@
+require 'pry'
 class Api::V1::DogsController < ApplicationController
     skip_before_action :verify_authenticity_token
     
@@ -10,9 +11,12 @@ class Api::V1::DogsController < ApplicationController
         @dog = Dog.find(params[:id])
         render json: @dog
     end
-
+    
     def create
-        @dog = Dog.new(dog_params)
+        dp = dog_params
+        dp[:pattern] = JSON.parse(dog_params[:pattern])
+
+        @dog = Dog.new(dp)
         if @dog.save
             render json: @dog
         else
@@ -31,8 +35,7 @@ class Api::V1::DogsController < ApplicationController
     end
 
 private
-
     def dog_params
-        params.require(:dog).permit(:name, :x, :y, :facing, :sprite_image, pattern: [])
+        params.require(:dog).permit(:name, :x, :y, :facing, :image, :pattern)
     end
 end

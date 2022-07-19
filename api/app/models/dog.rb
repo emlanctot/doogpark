@@ -1,7 +1,7 @@
 class Dog < ApplicationRecord
     validates :name, presence: true, uniqueness: true
     validates :pattern, presence: true
-    has_one_attached :sprite_image, :dependent => :destroy
+    has_one_attached :image, :dependent => :destroy
 
     def self.initial_canvas
         [

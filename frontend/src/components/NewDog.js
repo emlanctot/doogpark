@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, createContext } from 'react';
+import { useState, useRef, createContext } from 'react';
 import { HexColorPicker } from "react-colorful";
 import Row from './Row.js';
 import {createDogElement} from './SpriteSheet.js';
@@ -36,27 +36,27 @@ function NewDog() {
     const createDog = async (e) => {
         e.preventDefault();
         updateSpriteCanvas()
-        try {
-            let response = await fetch("http://localhost:3000/api/v1/dogs", {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({
-                    name: dogName,
-                    pattern: generateDogPattern,
-                    sprite_image: canvasRef.current.toDataURL()
-
-                }),
-            });
-            let responseJson = await response.json();
-            if (response.status === 200) {
-                setCreateMessage('yay dog created!')
-            } else {
-                setCreateMessage('oops something went wrong')
+        canvasRef.current.toBlob(async (blob) => {
+            const data = new FormData();
+            data.append("dog[name]", dogName);
+            data.append("dog[pattern]", JSON.stringify(generateDogPattern));
+            data.append("dog[image]", blob)
+            try {
+                let response = await fetch("http://localhost:3000/api/v1/dogs", {
+                    method: 'POST',
+                    body: data,
+                });
+                let responseJson = await response.json();
+                if (response.status === 200) {
+                    setCreateMessage('yay dog created!')
+                } else {
+                    setCreateMessage('oops something went wrong')
+                }
+                console.log(createMessage)
+            } catch (error) {
+                console.log(error);
             }
-            console.log(createMessage)
-        } catch (error) {
-            console.log(error);
-        }
+        })
     }
 
     let rows = [];

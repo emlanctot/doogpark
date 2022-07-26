@@ -3,13 +3,13 @@ class Api::V1::DogsController < ApplicationController
     skip_before_action :verify_authenticity_token
     
     def index
-        @dogs = Dog.all
+        @dogs = Dog.all.with_attached_image.map{|d| DogSerializer.new(d).serializable_hash[:data][:attributes]}
         render json: @dogs
     end
 
     def show
         @dog = Dog.find(params[:id])
-        render json: @dog
+        render json: DogSerializer.new(@dog).serializable_hash[:data][:attributes]
     end
     
     def create

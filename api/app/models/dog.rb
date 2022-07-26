@@ -3,6 +3,10 @@ class Dog < ApplicationRecord
     validates :pattern, presence: true
     has_one_attached :image, :dependent => :destroy
 
+    def image_url
+        Rails.application.routes.url_helpers.url_for(image) if image.attached?
+    end
+
     def self.initial_canvas
         [
             [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],

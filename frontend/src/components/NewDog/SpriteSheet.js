@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
-import '../styles/SpriteSheet.scss';
-import { dogRunningOne, dogRunningTwo, dogRunningThree, dogRunningFour, dogRunningFive } from './PixelDog';
+import '../../styles/SpriteSheet.scss';
+import { dogRunningOne, dogRunningTwo, dogRunningThree, dogRunningFour, dogRunningFive } from './DogTemplates';
 
 const DOG_SPRITES = [dogRunningOne, dogRunningTwo, dogRunningThree, dogRunningFour, dogRunningFive];
 

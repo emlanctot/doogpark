@@ -1,6 +1,6 @@
 import '../styles/App.scss';
 import { useState } from 'react';
-import NewDog from './NewDog.js';
+import NewDog from './NewDog/Index.js';
 import Park from './Park.js';
 
 

@@ -1,5 +1,5 @@
 import Pixel from "./Pixel";
-import '../styles/Row.scss';
+import '../../styles/Row.scss';
 
 export default function Row(props) {
     const { selectedColor, rowIndex, row } = props;

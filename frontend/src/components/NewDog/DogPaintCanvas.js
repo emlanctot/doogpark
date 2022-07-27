@@ -1,11 +1,11 @@
 import { useState, createContext, useEffect } from 'react'
 import { HexColorPicker } from "react-colorful";
-import { pixelDog } from './PixelDog';
+import { pixelDog } from './DogTemplates';
 import Row from './Row.js';
 
 export const DogPaintCanvasContext = createContext();
 
-export default function DogCanvas({ setDogPattern }) {
+export default function DogPaintCanvas({ setDogPattern }) {
 
 
   const [selectedColor, setColor] = useState("#684220")

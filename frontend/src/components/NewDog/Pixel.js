@@ -1,7 +1,7 @@
 import {useState, useContext} from 'react';
-import '../styles/Pixel.scss';
-import { pixelDog } from './PixelDog';
-import { DogPaintCanvasContext } from './DogCanvas';
+import '../../styles/Pixel.scss';
+import { pixelDog } from './DogTemplates';
+import { DogPaintCanvasContext } from './DogPaintCanvas';
 
 
 export default function Pixel(props) {

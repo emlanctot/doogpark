@@ -1,5 +1,5 @@
 import { useState, useRef, createContext } from 'react';
-import DogCanvas from './DogCanvas.js';
+import DogPaintCanvas from './DogPaintCanvas.js';
 import {createDogElement} from './SpriteSheet.js';
 
 
@@ -54,7 +54,7 @@ function NewDog() {
             <h1>New Dog</h1>
             <label>Dog Name:</label>
             <input type="text" name="name" onChange={inputsHandler} placeholder="Name" value={dogName} />
-            <DogCanvas dogPattern={dogPattern} setDogPattern={setDogPattern} />
+            <DogPaintCanvas dogPattern={dogPattern} setDogPattern={setDogPattern} />
             <button onClick={onSubmit}>create dog!</button>
             <canvas id="canvas" className="spriteCanvas" ref={canvasRef} width="80" height="400"></canvas>
         </div>

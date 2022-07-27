@@ -1,27 +1,28 @@
 import {useState, useContext} from 'react';
 import '../styles/Pixel.scss';
-import { dogCanvas } from './DogCanvas';
-import { MouseDownContext } from './NewDog';
+import { pixelDog } from './PixelDog';
+import { DogPaintCanvasContext } from './DogCanvas';
 
 
 export default function Pixel(props) {
-    const { selectedColor, rowIndex, pixelIndex, pixel, pixelCanvas, setPixelCanvas} = props;
+    const { selectedColor, rowIndex, pixelIndex, pixel} = props;
     
     const [pixelColor, setPixelColor] = useState(pixel);
     const [oldColor, setOldColor] = useState(pixelColor);
     const [canChangeColor, setCanChangeColor] = useState(true);
-    const {mouseDown, setMouseDown} = useContext(MouseDownContext)
+    const { mouseDown, setMouseDown, pixelCanvas, setPixelCanvas } = useContext(DogPaintCanvasContext)
 
     function validPixel() {
-        return !!dogCanvas[rowIndex][pixelIndex]
+        return !!pixelDog[rowIndex][pixelIndex]
     }
 
     function applyColor() {
-        if (dogCanvas[rowIndex][pixelIndex]) {
+        if (pixelDog[rowIndex][pixelIndex]) {
             setPixelColor(selectedColor);
             setCanChangeColor(false);
     
             pixelCanvas[rowIndex][pixelIndex] = selectedColor
+            console.log('this is applying change to pixel canvas', pixelCanvas)
             setPixelCanvas(pixelCanvas)
         }
     }

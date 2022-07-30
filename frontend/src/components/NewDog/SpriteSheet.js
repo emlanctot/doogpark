@@ -13,7 +13,7 @@ export const createDogElement = (pattern) => {
             let pixels = []
             row.map(pixel => {
                 let pixelColor = pixel === 0 ? 'transparent' : patternCopy.shift()
-                pixels.push(`<div className="pixel" style="background-color:${pixelColor}; width:0.2rem; height:0.2rem"></div>`)
+                pixels.push(`<div className="pixel" style="background-color:${pixelColor}; width:2px; height:2px"></div>`)
             })
             rows += '<div className="row" style="display:flex; width:fit-content">' +
                 pixels.join('') +
@@ -23,7 +23,7 @@ export const createDogElement = (pattern) => {
     }).join('');
 
     return (
-        '<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="1000">' +
+        '<svg xmlns="http://www.w3.org/2000/svg" width="500" height="500">' +
             '<foreignObject width="100%" height="100%">' +
                 '<div xmlns="http://www.w3.org/1999/xhtml">' +
                     (!!pattern ? dogElement : '') +

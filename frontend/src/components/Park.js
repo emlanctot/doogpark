@@ -25,6 +25,7 @@ function Park() {
                         facing={dog.facing}
                         x={dog.x}
                         y={dog.y}
+                        image_url={dog.image_url}
                     />
                 )
             })}

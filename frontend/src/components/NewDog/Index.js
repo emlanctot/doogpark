@@ -45,7 +45,6 @@ function NewDog() {
     
     const onSubmit = (e) => {
         e.preventDefault();
-        console.log('dogPattern on submit', dogPattern)
         updateSpriteCanvas();
     }
 

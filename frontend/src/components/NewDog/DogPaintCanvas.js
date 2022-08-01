@@ -22,11 +22,11 @@ export default function DogPaintCanvas({ setDogPattern }) {
   })
 
   return (
-    <>
+    <div onDragStart={(e) => e.preventDefault()}>
       <DogPaintCanvasContext.Provider value={{ mouseDown, setMouseDown, pixelCanvas, setPixelCanvas }}>
         {rows}
       </DogPaintCanvasContext.Provider>
       <HexColorPicker color={selectedColor} onChange={setColor} />
-    </>
+    </div>
   )
 }

@@ -1,5 +1,5 @@
-import '../styles/Park.scss';
-import DogSprite from './DogSprite.js';
+import '../../styles/Park.scss';
+import DogSprite from '../DogSprite.js';
 import { useState, useEffect } from 'react';
 
 function Park() {
@@ -15,7 +15,7 @@ function Park() {
     }, []);
 
     return (
-        <div className="park">
+        <div>
             {dogs.map((dog, i) => {
                 return (
                     <DogSprite

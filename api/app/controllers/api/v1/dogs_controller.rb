@@ -1,4 +1,3 @@
-require 'pry'
 class Api::V1::DogsController < ApplicationController
     skip_before_action :verify_authenticity_token
     

@@ -10,6 +10,9 @@ function DogSprite(props) {
     const height = 48;
     const scaledWidth = scale * width;
     const scaledHeight = scale * height;
+
+
+
     
     useEffect(() => {
         let img = new Image();
